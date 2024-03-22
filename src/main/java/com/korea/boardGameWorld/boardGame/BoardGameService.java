@@ -23,14 +23,24 @@ public class BoardGameService {
 
         try {
             Document doc = Jsoup.connect(URL).get();
-            System.out.println(doc);
+//            System.out.println(doc);
             Elements elements = doc.select("div.info");
             for (Element element : elements) {
                 BoardGame boardGame = new BoardGame();
-//                boardGame.setHref(element.attr("href"));
-//                boardGame.setTitle("text");
-                System.out.println("여기================>" + element);
-                System.out.println(element.attr("href"));
+
+                String title = element.select("a").text();
+                System.out.println(title);
+//                boardGame.setTitle(title);
+
+                String href = element.select("a").attr("href");
+                System.out.println(href);
+//                boardGame.setHref(href);
+
+                String wonPrice = element.select("p.sell").text();
+                String price = wonPrice.substring(0, wonPrice.length() - 1);
+                System.out.println(price);
+//                boardGame.setPrice(price);
+//                boardGameRepository.save(boardGame);
             }
         } catch (Exception e) {
             System.out.println("fuck_off");
